@@ -12,7 +12,7 @@
 <body>
     <!-- Button to go back to the home page -->
     <div style="padding: 20px;">
-        <a href="${pageContext.request.contextPath}/pages/home.jsp" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 5px; display: inline-block;">Back to Home</a>
+        <a href="${pageContext.request.contextPath}/DisplayProductsServlet" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 5px; display: inline-block;">Back to Home</a>
     </div>
     <div class="profile">
         <img src="${pageContext.request.contextPath}/images/about.jpg" alt="About">

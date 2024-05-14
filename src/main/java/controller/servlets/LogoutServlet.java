@@ -59,31 +59,3 @@ public class LogoutServlet extends HttpServlet {
     }
 
 }	
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        // Invalidate the current session if it exists
-//        HttpSession session = request.getSession(false);
-//        if (session != null) {
-//            session.invalidate();
-//        }
-//
-//        // Clear all cookies, particularly those that are used for user identification like email
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if ("admin_email".equals(cookie.getName()) || "user_email".equals(cookie.getName())) {
-//                    cookie.setValue(null);  // nullify the cookie
-//                    cookie.setMaxAge(0);   // expire the cookie immediately
-//                    cookie.setPath("/");   // specify the path to ensure it affects the correct cookie
-//                    response.addCookie(cookie);
-//                }
-//            }
-//        }
-//
-//        // Redirect to the login page or any other appropriate landing page
-//        response.sendRedirect(request.getContextPath() + AppUtilities.LANDING_PAGE);  // Adjust this URL as necessary
-//    }
-
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        doGet(request, response); // Forward POST requests to doGet method
-//    }
-//}

@@ -46,7 +46,62 @@ public class FilterAuthentication implements Filter {
             return;
         }
         
+        if (uri.endsWith("/AddProductServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
         if (uri.endsWith("/PersonalProfileServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/DisplayProductServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/SingleProductDetailsServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/AdminOrderServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/AddtocartServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/RemoveCartItemServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/ManageProductServelt")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/RemoveCartItemServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/SearchServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/DisplayEditProductFormServlet")) {
+			chain.doFilter(req, res);
+			return;
+		}
+        
+        if (uri.endsWith("/OrderServlet")) {
 			chain.doFilter(req, res);
 			return;
 		}

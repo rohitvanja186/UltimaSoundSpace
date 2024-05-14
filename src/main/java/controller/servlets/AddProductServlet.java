@@ -1,5 +1,6 @@
 package controller.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -33,54 +34,6 @@ public class AddProductServlet extends HttpServlet {
     }
 
     
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        String productName = request.getParameter(AppUtilities.PRODUCT_NAME);
-//        String productPriceStr = request.getParameter(AppUtilities.PRODUCT_PRICE);
-//        String productQuantityStr = request.getParameter(AppUtilities.PRODUCT_QUANTITY);
-//        Part productImage = request.getPart(AppUtilities.PRODUCT_IMAGE);
-//        String productDescription = request.getParameter(AppUtilities.PRODUCT_DESCRIPTION);
-//
-//        try {
-//            // Parse product price from String to double
-//            double productPrice = 0.0;
-//            if (productPriceStr != null && !productPriceStr.isEmpty()) {
-//                productPrice = Double.parseDouble(productPriceStr);
-//            }
-//
-//            // Parse product quantity from String to int
-//            int productQuantity = 0;
-//            if (productQuantityStr != null && !productQuantityStr.isEmpty()) {
-//                productQuantity = Integer.parseInt(productQuantityStr);
-//            }
-//
-//            ProductModel productModel = new ProductModel(productName, productPrice, productQuantity, productImage, productDescription);
-//            
-//            String savePath = AppUtilities.IMG_DIR;
-//            String fileName = productModel.getProductImage();
-//            if(!fileName.isEmpty() && fileName != null)
-//            	productImage.write(savePath + fileName);
-//
-//            int productResult = dbController.addProduct(productModel);
-//
-//            if (productResult > 0) {
-//                // Product added successfully
-//                request.setAttribute(AppUtilities.SUCCESS_MESSAGE, AppUtilities.ADDPRODUCT_SUCCESS_MESSAGE);
-//                response.sendRedirect(request.getContextPath() + AppUtilities.ADMIN_PAGE);
-//            } else {
-//                // Error adding product
-//                request.setAttribute(AppUtilities.ERROR_MESSAGE, AppUtilities.ADDPRODUCT_ERROR_MESSAGE);
-//                request.getRequestDispatcher(AppUtilities.ADD_PRODUCT_FORM_PAGE).forward(request, response);
-//            }
-//        } catch (NumberFormatException e) {
-//            // Handle parsing errors
-//            e.printStackTrace(); // Log the exception for debugging
-//            response.sendRedirect(request.getContextPath() + AppUtilities.ADD_PRODUCT_FORM_PAGE); // Redirect to error page
-//        }
-//    }
-//    
-//}
-
-    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String productName = request.getParameter(AppUtilities.PRODUCT_NAME);
 		double productPrice = Double.parseDouble(request.getParameter(AppUtilities.PRODUCT_PRICE));
@@ -92,7 +45,12 @@ public class AddProductServlet extends HttpServlet {
 		ProductModel productModel = new ProductModel(productName, productPrice, productQuantity, productImage, productDescription);
 		
 		String savePath = AppUtilities.IMG_DIR;
+		System.out.println("Save Path: " + savePath);
+		
         String fileName = productModel.getProductImage();
+        
+        File file = new File(savePath, fileName);
+        System.out.println("File Exists: " + file.exists());
         if(!fileName.isEmpty() && fileName != null)
       	productImage.write(savePath + fileName);
 		
@@ -101,40 +59,17 @@ public class AddProductServlet extends HttpServlet {
 		if (productResult > 0) {
 	        // Product added successfully
 			request.setAttribute(AppUtilities.SUCCESS_MESSAGE, AppUtilities.ADDPRODUCT_SUCCESS_MESSAGE);
-			response.sendRedirect(request.getContextPath() + AppUtilities.ADMIN_PAGE);
+			response.sendRedirect(request.getContextPath() + AppUtilities.ADD_PRODUCT_SERVLET);
 	    } else {
 	        // Error adding product
 	        request.setAttribute(AppUtilities.ERROR_MESSAGE, AppUtilities.ADDPRODUCT_ERROR_MESSAGE);
-	        request.getRequestDispatcher(AppUtilities.ADD_PRODUCT_FORM_PAGE).forward(request, response);
+	        request.getRequestDispatcher(AppUtilities.ADD_PRODUCT_SERVLET).forward(request, response);
 	    }
-		
-		
 	}
+	
+	@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher(AppUtilities.ADD_PRODUCT_FORM_PAGE).forward(request, response);
+    }
 }
 
-
-//try {
-//    // Parse product price from String to double
-//    double productPrice = Double.parseDouble(productPriceStr);
-//
-//    // Parse product quantity from String to int
-//    int productQuantity = Integer.parseInt(productQuantityStr);
-//
-//    ProductModel productModel = new ProductModel(productName, productPrice, productQuantity, productImage, productDescription);
-//
-//    int productResult = dbController.addProduct(productModel);
-//
-//    if (productResult > 0) {
-//        // Product added successfully
-//        request.setAttribute(AppUtilities.SUCCESS_MESSAGE, AppUtilities.ADDPRODUCT_SUCCESS_MESSAGE);
-//        response.sendRedirect(request.getContextPath() + AppUtilities.ADMIN_PAGE);
-//    } else {
-//        // Error adding product
-//        request.setAttribute(AppUtilities.ERROR_MESSAGE, AppUtilities.ADDPRODUCT_ERROR_MESSAGE);
-//        request.getRequestDispatcher(AppUtilities.ADD_PRODUCT_FORM_PAGE).forward(request, response);
-//    }
-//} catch (NumberFormatException e) {
-//    // Handle parsing errors
-//    e.printStackTrace(); // Log the exception for debugging
-//    response.sendRedirect("error.jsp"); // Redirect to error page
-//}

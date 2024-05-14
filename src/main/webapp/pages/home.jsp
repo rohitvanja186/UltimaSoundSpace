@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.ProductModel" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +23,11 @@
             document.getElementById('logoutForm').submit();
         }
     }
-    </script>
+
+    </script> 
+
+    <script>console.log('Context Path: <%= request.getContextPath() %>');</script>
+    
 </head>
 <body>
 	<div class="navbar" id="homeSection">
@@ -41,7 +47,7 @@
         		</a>
     		</div>
    		 	<div class="icon-wrapper">
-        		<a href="${pageContext.request.contextPath}/cart">
+        		<a href="${pageContext.request.contextPath}/AddtocartServlet">
             		<i class="fa-solid fa-cart-shopping" title="Cart"></i>
       		 	</a>
     	 	</div>
@@ -54,54 +60,56 @@
    			</div>
 		</div>
     </div>
+    
+    <% if (session.getAttribute("cartMessage") != null) { %>
+        <div style="color: green; text-align: center; margin-top: 20px;">
+            <%= session.getAttribute("cartMessage") %>
+        </div>
+        <% session.removeAttribute("cartMessage"); %>
+    <% } %>
+    
     <div class="container">
         <div class="search">
             <h2>Amplify Your Experience:<br> Shop Speakers Today!</h2>
+            <form action="${pageContext.request.contextPath}/SearchServlet" method="GET">
             <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <i class="fas fa-search"></i>
+                <input type="text" name="search" placeholder="Search..." required>
+                <button type="submit" style="border: none; background: none;">
+                    <i class="fas fa-search"></i>
+                </button>
             </div>
-        </div>
+        	</form>
+        </div> 
         <img src="${pageContext.request.contextPath}/images/home.jpg" alt="Home Decor">
     </div>
     <div class="collection" id="collectionSection">
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-        <div class="item">
-            <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-            <p>DJ</p>
-            <p>Rs.50000</p>
-            <button>Add to cart</button>
-        </div>
-     </div>
+    	<% 
+    	List<ProductModel> products = (List<ProductModel>) request.getAttribute("products");
+    	if (products != null && !products.isEmpty()) {
+        	for (ProductModel product : products) {
+    	%>
+        	<div class="item">
+            	<!-- Adding a link around the product details to make them clickable and pass the product ID -->
+            	<a href="${pageContext.request.contextPath}/SingleProductDetailServlet?id=<%= product.getProductId() %>" style="text-decoration: none; color: inherit; text-align: center">
+                	<img src="${pageContext.request.contextPath}/productImages/<%= product.getProductImage() %>" alt="<%= product.getProductName() %>">
+                	<p><%= product.getProductName() %></p>
+                	<p>Rs.<%= product.getProductPrice() %></p>
+            	</a>
+            	<!-- Form for adding product to cart -->
+            	<form action="${pageContext.request.contextPath}/AddtocartServlet" method="post">
+           	     	<input type="hidden" name="productId" value="<%= product.getProductId() %>">
+                	<input type="hidden" name="quantity" value="1"> <!-- Assuming a default quantity of 1 -->
+                	<button type="submit" style="margin-top: -100px;">Add to cart</button>
+            	</form>
+       		 </div>
+    	<%
+        	}
+    	} else {
+        	out.println("<p>No products available.</p>");
+    	}
+    	%>
+ 	 </div>
+    
      <div class="about" id="aboutSection">
         <h1>About us</h1>
         <div class="about_us">

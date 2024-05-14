@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.ProductModel" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,14 @@
             scroll-behavior: smooth;
         }
     </style>
+
+    <%
+        if (request.getAttribute("products") == null) {
+            response.sendRedirect(request.getContextPath() + "/DisplayProductServlet");
+            return;
+        }
+    %>
+    
 </head>
 <body>
 	<div class="navbar">
@@ -22,7 +32,7 @@
                     <li><a href="#contactSection">Contact</a></li>
                 </ul>
             </div>
-            <img src="../images/logo.png" alt="">
+            <img src="${pageContext.request.contextPath}/images/logo.png" alt="">
             <div class="login">
              <a href="${pageContext.request.contextPath}/pages/login.jsp">
                 <button id="login">Login <i class="fa-solid fa-user"></i></button>
@@ -40,46 +50,31 @@
         			<button class="about">About us</button>
    				</a>
             </div>
-            <img src="../images/content.jpg" alt="">
+            <img src="${pageContext.request.contextPath}/images/content.jpg" alt="">
         </div>
+        
         <div class="collection" id="collectionSection">
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-            <div class="item">
-                <img src="https://imgs.search.brave.com/gIjCEZSt2lxeK_Acw6YZtsk7n66YmCHMJoSCxHL9q20/rs:fit:500:0:0/g:ce/aHR0cHM6Ly93d3cu/cG5nYWxsLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvNC9XaXJl/bGVzcy1Qb3J0YWJs/ZS1TcGVha2VyLnBu/Zw" alt="">
-                <p>DJ</p>
-                <p>Rs.50000</p>
-                <button>Add to cart</button>
-            </div>
-         </div>
+    		<% 
+			List<ProductModel> products = (List<ProductModel>) request.getAttribute("products");
+			if (products != null && !products.isEmpty()) {
+    			for (ProductModel product : products) {
+			%>
+        		<div class="item">
+            		<img src="${pageContext.request.contextPath}/productImages/<%= product.getProductImage() %>" alt="<%= product.getProductName() %>">
+            		<p><%= product.getProductName() %></p>
+            		<p>Rs.<%= product.getProductPrice() %></p>
+            		<button>Add to cart</button>
+        		</div>
+			<%
+    			}
+			} else {
+    			// Optionally display a message if no products are found
+    			out.println("<p>No products available.</p>");
+			}
+			%>
+ 
+		</div>
+        
          <div class="about" id="aboutSection">
             <h1>About us</h1>
             <div class="about_us">
@@ -89,7 +84,7 @@
                      Our commitment to excellence drives every aspect of our business, from the meticulous design process to the rigorous testing and quality assurance procedures.
                      But our mission goes beyond just making great speakers; it's about connecting people with the power of music and sound. Whether you're an audiophile seeking studio-grade clarity or a casual listener looking to enhance your home entertainment setup, we're here to help you discover the perfect speakers for your unique needs.
                      Welcome to Speaker Haven, where every note, every beat, and every sound matters.</p>
-                     <img src="../images/about.jpg" alt="">
+                     <img src="${pageContext.request.contextPath}/images/about.jpg" alt="">
             </div>
          </div>
          <div class="contact" id="contactSection">

@@ -9,6 +9,7 @@ import utilities.AppUtilities;
 public class ProductModel {
 	
 	//product main details attributes
+	private int productId;
 	private String productName;
 	private double productPrice;
 	private int productQuantity;
@@ -24,8 +25,20 @@ public class ProductModel {
         this.productImage = getImageUrl(productImagePart);
         this.productDescription = productDescription;
     }
+    
+    public ProductModel() {
+    	
+    }
 
     // Main details getter and setter methods
+    public int getProductId() {
+		return productId;
+	}
+
+	public void setProductId(int productId) {
+		this.productId = productId;
+	}
+    
 	public String getProductName() {
 		return productName;
 	}

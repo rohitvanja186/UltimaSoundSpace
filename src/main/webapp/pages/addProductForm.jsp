@@ -9,6 +9,11 @@
 <link rel="stylesheet" type="text/css"href="${pageContext.request.contextPath}/stylesheet/addProductForm.css" />
 </head>
 <body>
+	
+	<!-- Button to go back to the home page -->
+    <div style="padding: 20px;">
+        <a href="${pageContext.request.contextPath}/DisplayProductAdminServlet" style="text-decoration: none; color: white; background-color: #007BFF; padding: 10px 20px; border-radius: 5px; display: inline-block;">Back to Panel</a>
+    </div>
 
 	<div class="add-product-form">
         <h2>Add Product</h2>
@@ -37,4 +42,4 @@
         </form>
     </div>
 </body>
-</html>
+</html> 

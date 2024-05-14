@@ -57,6 +57,7 @@ public class AppUtilities {
 	//Add Product***
 	public static final String ADD_PRODUCT = "INSERT INTO product_details (product_name, product_price, product_quantity, product_image, product_description) value (?,?,?,?,?)";
 	public static final String ALL_PRODUCT_INFO = "SELECT * FROM product_details";
+	public static final String SINGLE_PRODUCT_DETAILS_FETCH = "SELECT * FROM product_details WHERE product_id = ?";
 	
 	//Product Parameter names***
 	public static final String PRODUCT_NAME = "productName";
@@ -65,9 +66,13 @@ public class AppUtilities {
 	public static final String PRODUCT_IMAGE = "productImage";
 	public static final String PRODUCT_DESCRIPTION = "productDescription";
 	
+	
+
 	//Product image directory***
-	public static final String IMG_DIR_PATH = "xampp copy\\tomcat\\webapps\\images";
+	public static final String IMG_DIR_PATH = "Users\\DELL\\eclipse-workspace\\UltimaSoundSpace\\src\\main\\webapp\\productImages\\";
 	public static final String IMG_DIR = "C:" + File.separator + IMG_DIR_PATH;
+	
+	
 	
 	//JSP Route***
 	public static final String LANDING_PAGE = "/pages/landing.jsp";
@@ -77,6 +82,8 @@ public class AppUtilities {
 	public static final String PERSONAL_PROFILE_PAGE = "/pages/personalProfile.jsp";
 	public static final String ADMIN_PAGE = "/pages/adminPanel.jsp";
 	public static final String ADD_PRODUCT_FORM_PAGE = "/pages/addProductForm.jsp";
+	public static final String SINGLE_PRODUCT_DETAILS_PAGE = "/pages/singleProductDetail.jsp";
+	public static final String CART_PAGE = "/pages/cart.jsp";
 	
 		
 	//Servled Route***
@@ -84,4 +91,8 @@ public class AppUtilities {
 	public static final String LOGIN_SERVLET = "/LoginServlet";
 	public static final String PROFILE_SERVLET = "/PersonalProfileServlet";
 	public static final String ADD_PRODUCT_SERVLET = "/AddProductServlet";
+	public static final String SINGLE_PRODUCT_DETAILS_SERVLET = "/SingleProductDetailServlet";
+	public static final String ADD_TO_CART_SERVLET = "/AddtocartServlet";
+	public static final String DISPLAY_PRODUCT_ADMIN_SERVLET = "/DisplayProductAdminServlet";
+	public static final String ORDER_SERVLET = "/OrderServlet";
 }

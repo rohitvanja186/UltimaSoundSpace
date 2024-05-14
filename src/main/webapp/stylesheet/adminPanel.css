@@ -54,6 +54,30 @@ nav ul li a:hover {
     color: #ccc;
 }
 
+/* Navigation Icon Styles */
+.icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 27rem; 
+}
+
+.icon-wrapper i {
+  font-size: 20px; /* Increase the icon size */
+  color: #fff; /* Set the icon color */
+  transition: color 0.3s ease; /* Add a smooth transition effect on hover */
+}
+
+.icon-wrapper i:hover {
+  color: #ccc; /* Change the icon color on hover */
+}
+
+.icon-wrapper span {
+  font-size: 20px;
+  color: #fff;
+  font-weight: 500;
+}
+
 .main-content {
     flex: 1;
     padding: 20px;
@@ -89,6 +113,7 @@ main {
 h2 {
     margin-bottom: 20px;
 }
+
 
 table {
     width: 100%;

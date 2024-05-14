@@ -1,0 +1,39 @@
+@charset "UTF-8";
+.collection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.item{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 20px;
+    background-color: rgba(238, 238, 238, 0.5);
+    gap: 10px;
+    padding: 10px;
+}
+.item img{
+    height: 400px;
+    width: 400px;
+}
+.item p{
+    font-size: 20px;
+    color: #1C6675;
+}
+.item:hover{
+    background-color: rgba(205, 205, 205, 0.5);
+}
+.item button{
+    height: 40px;
+    width: 100px;
+    background-color: #1C6675;
+    border: none;
+    border-radius: 10px;
+    color: #ffffff;
+}

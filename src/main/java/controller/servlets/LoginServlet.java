@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
             if (admin != null) {
                 // Set success message and redirect to admin panel
                 request.setAttribute(AppUtilities.SUCCESS_MESSAGE, AppUtilities.ADMIN_LOGIN_SUCCESS_MESSAGE);
-                request.getRequestDispatcher(AppUtilities.ADMIN_PAGE).forward(request, response);
+                request.getRequestDispatcher(AppUtilities.DISPLAY_PRODUCT_ADMIN_SERVLET).forward(request, response);
             } else {
                 // If admin details are not found, handle the error appropriately
                 request.setAttribute(AppUtilities.ERROR_MESSAGE, "Admin details not found");
@@ -83,7 +83,8 @@ public class LoginServlet extends HttpServlet {
             if (user != null) {
             	// Set success message and redirect to home page
                 request.setAttribute(AppUtilities.SUCCESS_MESSAGE, AppUtilities.USER_LOGIN_SUCCESS_MESSAGE);
-                request.getRequestDispatcher(AppUtilities.HOME_PAGE).forward(request, response);
+//                request.getRequestDispatcher(AppUtilities.HOME_PAGE).forward(request, response);
+                request.getRequestDispatcher("/DisplayProductServlet").forward(request, response);
             } else {
                 // If user details are not found, handle the error appropriately
                 request.setAttribute(AppUtilities.ERROR_MESSAGE, "User details not found");
